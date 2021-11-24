@@ -1,10 +1,25 @@
-import React from 'react';
+import { useState, React } from 'react';
 import './App.css';
-import {price} from 'faker'
+
 
 function App() {
-  return <h1>Hello World</h1>
-    
+
+  return (
+
+    <div>
+
+      <div>
+        <nav>
+          <a href="#">Home</a> |
+          <a href="#">Cats</a> |
+          <a href="#">Checkout</a>
+        </nav>
+        <img src="" alt="Basket"></img>
+      </div>
+
+    </div>
+
+  )
 }
 
 export default App;
