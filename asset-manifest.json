@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Cats-Ecommerce/static/css/main.9c0f1649.chunk.css",
+    "main.js": "/Cats-Ecommerce/static/js/main.d7da64b2.chunk.js",
+    "main.js.map": "/Cats-Ecommerce/static/js/main.d7da64b2.chunk.js.map",
+    "runtime-main.js": "/Cats-Ecommerce/static/js/runtime-main.c4e8d7b1.js",
+    "runtime-main.js.map": "/Cats-Ecommerce/static/js/runtime-main.c4e8d7b1.js.map",
+    "static/js/2.f582b1d6.chunk.js": "/Cats-Ecommerce/static/js/2.f582b1d6.chunk.js",
+    "static/js/2.f582b1d6.chunk.js.map": "/Cats-Ecommerce/static/js/2.f582b1d6.chunk.js.map",
+    "index.html": "/Cats-Ecommerce/index.html",
+    "static/css/main.9c0f1649.chunk.css.map": "/Cats-Ecommerce/static/css/main.9c0f1649.chunk.css.map",
+    "static/js/2.f582b1d6.chunk.js.LICENSE.txt": "/Cats-Ecommerce/static/js/2.f582b1d6.chunk.js.LICENSE.txt",
+    "static/media/BasketIcon.f5cd7bbe.png": "/Cats-Ecommerce/static/media/BasketIcon.f5cd7bbe.png",
+    "static/media/CatLogo.cf1fb029.jpg": "/Cats-Ecommerce/static/media/CatLogo.cf1fb029.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c4e8d7b1.js",
+    "static/js/2.f582b1d6.chunk.js",
+    "static/css/main.9c0f1649.chunk.css",
+    "static/js/main.d7da64b2.chunk.js"
+  ]
+}
