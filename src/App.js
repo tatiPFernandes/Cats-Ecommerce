@@ -49,7 +49,7 @@ const App = () => {
                {cats.map((cat, index) => {
                 return (<div>      
                   <img src ={cat.url} alt =""></img>
-                  <p>Name: {faker.name.findName()}</p>
+                  <p>Name: {faker.name.firstName()}</p>
                   <p>Price: {faker.finance.amount()}</p>
                   <button>Add to Basket</button>
                 </div>
