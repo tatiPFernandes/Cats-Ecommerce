@@ -1,38 +1,120 @@
-.App {
+body {
+  background: white;
+  background: linear-gradient(lightcoral, yellow);
+  background-repeat: no-repeat;
+  background-size: cover;
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.nav-bar {
+  background-color: #ab1142;
+  padding: 15px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.nav-bar nav {
+  text-align: left;
+  overflow: hidden;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.nav-bar nav a {
+  line-height: 50px;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 7px;
+  font-size: 18px;
+  font-family: sans-serif;
+  text-decoration: none;
+  font-weight: 600;
 }
 
-.App-link {
-  color: #61dafb;
+.nav-bar nav a:hover {
+  background-color: #851538;
+  padding: 7px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.basket img{
+  float: right;
+  width: auto;
+  height: 50px;
+}
+
+.footer {
+  background-color: darkblue;
+  text-align: left;
+}
+
+.footer a {
+  line-height: 50px;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 7px;
+  font-size: 18px;
+  font-family: sans-serif;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 20px;
+}
+
+.footer a:hover{
+  text-decoration: underline;
+}
+
+.logo img {
+  background-color: orangered;
+  border: 2px solid black;
+  border-radius: 6px;
+  padding: 20px;
+  width: 50%;
+  height: 50%;
+}
+
+.card {
+  background: linear-gradient(orangered, orange);
+  box-shadow: 0px 10px black;
+  border-radius: 16px;
+  width: 250px;
+  height: 350px;
+}
+
+.card img {
+  border-radius: 100px;
+  width: 150px;
+  height: 150px;
+}
+
+.card button {
+  background: rgb(255, 208, 0);
+  border-radius: 8px;
+  box-shadow: 0px 2px black;
+  padding: 5px;
+  transition: all .2s ease-in-out;
+}
+
+.card button:hover {
+  background: rgb(255, 229, 116);
+  transform: scale(1.1);
+}
+
+.card p {
+  padding-top: 10px;
+  
+}
+
+.card-space {
+  padding: 50px;
+}
+
+.spacer {
+  padding: 5px;
+}
+
+.basket img {
+  padding: 5px;
+  transition: all .2s ease-in-out;
+}
+
+.basket img:hover {
+  transform: scale(1.1);
 }
