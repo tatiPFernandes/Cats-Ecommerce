@@ -155,9 +155,10 @@ const App = () => {
 
                       <div className="card">
 
-                        <p>Name goes here</p>
+                        
                         <img src={cat.url} alt="Cat-Picture" />
-                        <p>Price goes here</p>
+                        <p>Name: {faker.name.firstName()}</p>
+                        <p>Price: {faker.finance.amount()}</p>
 
                         <div>
                           <button>Add to Basket</button>
