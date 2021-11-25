@@ -8,6 +8,8 @@ body {
   margin-right: auto;
 }
 
+/* Nav Bar */
+
 .nav-bar {
   background-color: #ab1142;
   padding: 15px;
@@ -34,11 +36,24 @@ body {
   padding: 7px;
 }
 
+/* Basket Icon */
+
 .basket img{
   float: right;
   width: auto;
   height: 50px;
 }
+
+.basket img {
+  padding: 5px;
+  transition: all .2s ease-in-out;
+}
+
+.basket img:hover {
+  transform: scale(1.1);
+}
+
+/* Footer */
 
 .footer {
   background-color: darkblue;
@@ -61,21 +76,62 @@ body {
   text-decoration: underline;
 }
 
-.logo img {
-  background-color: orangered;
-  border: 2px solid black;
-  border-radius: 6px;
-  padding: 20px;
-  width: 50%;
-  height: 50%;
+/* Slideshow */
+
+.slide {
+  display: inline-block;
+  border-radius: 40px;
+  width: 100%;
+  height: 500px;
 }
+
+#slideshow {
+  background: white;
+  border: 2px solid black;
+  border-radius: 16px;
+  padding: 15px;
+  padding-bottom: 10px;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.slideshow {
+  margin: 0 auto;
+  overflow: hidden;
+  max-width: 700px;
+}
+
+.slideshowSlider {
+  white-space: nowrap;
+  transition: ease 1000ms;
+}
+
+.slideshowDot {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin: 15px 7px 0px;
+  background-color: #c4c4c4;
+}
+
+.slideshowDot.active {
+  background-color: #666;
+}
+
+.slideshowDots {
+  text-align: center;
+}
+
+/* Cards */
 
 .card {
   background: linear-gradient(orangered, orange);
   box-shadow: 0px 10px black;
   border-radius: 16px;
-  width: 250px;
-  height: 350px;
+  width: 220px;
+  height: 320px;
 }
 
 .card img {
@@ -106,15 +162,16 @@ body {
   padding: 50px;
 }
 
+/* Extra */
+
 .spacer {
   padding: 5px;
 }
 
-.basket img {
-  padding: 5px;
-  transition: all .2s ease-in-out;
-}
-
-.basket img:hover {
-  transform: scale(1.1);
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
 }

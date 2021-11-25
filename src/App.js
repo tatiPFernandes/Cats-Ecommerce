@@ -1,27 +1,83 @@
-import { useState, useEffect, React } from 'react';
+import { useEffect, useRef, useState } from "react";
+import React from 'react';
+import './App.css';
 import basket from './images/BasketIcon.png';
 import catLogo from './images/CatLogo.jpg';
-import './App.css';
+import faker from 'faker';
 
 
-function App() {
+const delay = 2500;
 
-  const [catImage, setCatImage] = useState("");
-  const [catName, setCatName] = useState("");
+const App = () => {
 
-  const catImg = async () => {
-    const response = await fetch("https://api.thecatapi.com/v1/images/search");
-    const data = await response.json();
-    setCatImage(data[0].url);
+  const [loading, setLoading] = useState(false);
+  const [index, setIndex] = useState(0);
+
+  const timeoutRef = useRef(null);
+
+  const [error, setError] = useState({
+    error: false,
+    message: "",
+  });
+
+  const [cats, setCats] = useState([]);
+
+  const handler = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("https://api.thecatapi.com/v1/images/search?limit=10");
+      console.log(response);
+      if (response.status !== 200) {
+        throw new Error("Something got wrong");
+      }
+
+      const data = await response.json();
+
+      setCats(data);
+      console.log(data)
+      setLoading(false);
+
+    } catch (e) {
+      setError({ error: true, message: e.message });
+    }
+  };
+
+  useEffect(() => {
+    handler();
+  }, []);
+
+  // Slideshow Functionality
+
+  function resetTimeout() {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
   }
 
   useEffect(() => {
-    catImg();
-  }, [])
+    resetTimeout();
+    timeoutRef.current = setTimeout(
+      () =>
+        setIndex((prevIndex) =>
+          prevIndex === cats.length - 1 ? 0 : prevIndex + 1
+        ),
+      delay
+    );
+    return () => {
+      resetTimeout();
+    };
+  }, [index]);
+
+  if (error.error) {
+    return <h1>{error.message}</h1>;
+  }
+
+  // Page
 
   return (
-
     <div>
+
+      {/* Nav Bar */}
 
       <div className="nav-bar">
         <nav className="pages">
@@ -30,48 +86,103 @@ function App() {
           <a href="#">Checkout</a>
           <span className="basket"><img src={basket} alt="Basket-Icon" /></span>
         </nav>
-
       </div>
+
+      {/* Title */}
 
       <div>
-        <h1>Cats4Lyf</h1>
+        <h1>Cats</h1>
       </div>
 
-      <div className="logo">
-        <img src={catLogo} alt="Cat Logo" />
-      </div>
+      {/* Slideshow */}
 
-      <div className="card-space">
-
-        <div className="card">
-          <p>John</p>
-          <img src={catImage} alt="Test" />
-          <p>Price: £499</p>
-          <div className="spacer">
-            <button id="buyItem">Buy</button>
+      <div>
+        <div id="slideshow">
+          <div className="slideshow">
+            <div className="slideshowSlider"
+              style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
+            >
+              {cats.map((cat, index) => {
+                return (
+                  <img className="slide" key={index} src={cat.url} alt="Cat" />
+                )
+              })}
+            </div>
+            <div className="slideshowDots">
+              {cats.map((_, idx) => (
+                <div
+                  key={idx}
+                  className={`slideshowDot${index === idx ? " active" : ""}`}
+                  onClick={() => {
+                    setIndex(idx);
+                  }}
+                ></div>
+              ))}
+            </div>
           </div>
-          <div className="spacer">
-            <button id="addToBasket">Add to basket</button>
+        </div>
+
+        {/* Cat Elements */}
+
+        <div className="row">
+          {cats ? (
+            <>
+              {cats.map((cat, index) => {
+                return (
+
+                  // Individual Cat Card
+
+                  <div className="card-space">
+                    <div>
+
+                      <div className="card">
+
+                        <p>Name goes here</p>
+                        <img src={cat.url} alt="Cat-Picture" />
+                        <p>Price goes here</p>
+
+                        <div>
+                          <button>Add to Basket</button>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+                )
+              })}
+            </>
+
+          ) : (
+            <h1>loading cats...</h1>
+          )}
+
+        </div>
+
+        {/* Page Footer */}
+
+        <div>
+
+          <div className="footer">
+            <div>
+              <a href="#">Home</a>
+            </div>
+            <div>
+              <a href="#">Cats</a>
+            </div>
+            <div>
+              <a href="#">Checkout</a>
+            </div>
+            <div>
+              <a href="#">Contact us</a>
+            </div>
           </div>
+
         </div>
 
       </div>
-
-      <div className="footer">
-        <div>
-          <a href="#">Home</a>
-        </div>
-        <div>
-          <a href="#">Cats</a>
-        </div>
-        <div>
-          <a href="#">Checkout</a>
-        </div>
-      </div>
-
     </div>
-
-  )
-}
+  );
+};
 
 export default App;
