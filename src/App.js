@@ -1,74 +1,83 @@
-import { useEffect, useState } from "react";
-import React from 'react';
+import { useState, useEffect, React } from 'react';
+import basket from './images/BasketIcon.png';
+import catLogo from './images/CatLogo.jpg';
 import './App.css';
-import faker from 'faker'; 
 
 
+function App() {
 
+  const [catImage, setCatImage] = useState("");
+  const [catName, setCatName] = useState("");
 
-const App = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState({
-    error: false,
-    message: "",
-  });
-  const [cats, setCats] = useState([]);
-  const handler = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch("https://api.thecatapi.com/v1/images/search?limit=10");
-      console.log(response);
-      if (response.status !== 200) {
-        throw new Error("Something got wrong");
-      }
-      
-      const data = await response.json();
-    
-      setCats(data);
-      console.log(data)
-      setLoading(false);
-    } catch (e) {
-      setError({ error: true, message: e.message });
-    }
-  };
- 
-  useEffect(() => {
-    handler();
-  }, []);
-
-  if (error.error) {
-    return <h1>{error.message}</h1>;
+  const catImg = async () => {
+    const response = await fetch("https://api.thecatapi.com/v1/images/search");
+    const data = await response.json();
+    setCatImage(data[0].url);
   }
 
-   
+  useEffect(() => {
+    catImg();
+  }, [])
+
   return (
+
     <div>
-      <h1>Cats</h1>
-      {cats ? (
-        <>
-               {cats.map((cat, index) => {
-                return <div>
-                  <img src ={cat.url} alt =""></img>
-                </div>
-               
-            })}
-          </>
-              
-      ) : (
-        <h1>loading cats...</h1>
-      )}
+
+      <div className="nav-bar">
+        <nav className="pages">
+          <a href="#">Home</a>
+          <a href="#">Cats</a>
+          <a href="#">Checkout</a>
+          <span className="basket"><img src={basket} alt="Basket-Icon" /></span>
+        </nav>
+
+      </div>
+
+      <div>
+        <h1>Cats4Lyf</h1>
+      </div>
+
+      <div className="logo">
+        <img src={catLogo} alt="Cat Logo" />
+      </div>
+
+      <div className="card-space">
+
+        <div className="card">
+          <p>John</p>
+          <img src={catImage} alt="Test" />
+          <p>Price: £499</p>
+          <div className="spacer">
+            <button id="buyItem">Buy</button>
+          </div>
+          <div className="spacer">
+            <button id="addToBasket">Add to basket</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div className="footer">
+        <div>
+          <a href="#">Home</a>
+        </div>
+        <div>
+          <a href="#">Cats</a>
+        </div>
+        <div>
+          <a href="#">Checkout</a>
+        </div>
+      </div>
+
     </div>
-  );
-};
 
-
-
-
+  )
+}
 
 export default App;
-  
 
-    
+
+
 
 
 
