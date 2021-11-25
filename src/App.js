@@ -47,11 +47,15 @@ const App = () => {
       {cats ? (
         <>
                {cats.map((cat, index) => {
-                return <div>
+                return (<div>      
                   <img src ={cat.url} alt =""></img>
+                  <p>Name: {faker.name.findName()}</p>
+                  <p>Price: {faker.finance.amount()}</p>
+                  <button>Add to Basket</button>
                 </div>
+                 
                
-            })}
+               )})}
           </>
               
       ) : (
