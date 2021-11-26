@@ -22,6 +22,8 @@ const App = () => {
 
   const [cats, setCats] = useState([]);
 
+  // API Handler
+
   const handler = async () => {
     try {
       setLoading(true);
@@ -72,7 +74,7 @@ const App = () => {
     return <h1>{error.message}</h1>;
   }
 
-  // Page
+  // Home Page
 
   return (
     <div>
@@ -133,19 +135,17 @@ const App = () => {
                   // Individual Cat Card
 
                   <div className="card-space">
-                    <div>
 
-                      <div className="card">
+                    <div className="card">
 
-                        <p>Name goes here</p>
-                        <img src={cat.url} alt="Cat-Picture" />
-                        <p>Price goes here</p>
+                      <p>Name goes here</p>
+                      <img src={cat.url} alt="Cat-Picture" />
+                      <p>Price goes here</p>
 
-                        <div>
-                          <button>Add to Basket</button>
-                        </div>
-
+                      <div>
+                        <button>Add to Basket</button>
                       </div>
+
                     </div>
 
                   </div>
@@ -154,7 +154,11 @@ const App = () => {
             </>
 
           ) : (
-            <h1>loading cats...</h1>
+            <div className="loading">
+              <span className="dot1"></span>
+              <span className="dot2"></span>
+              <span className="dot3"></span>
+            </div>
           )}
 
         </div>
@@ -181,6 +185,7 @@ const App = () => {
         </div>
 
       </div>
+
     </div>
   );
 };
