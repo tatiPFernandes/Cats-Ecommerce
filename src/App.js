@@ -48,6 +48,24 @@ const App = () => {
     handler();
   }, []);
 
+  // Modal Open/Close
+
+  const [open, setOpen] = useState();
+
+  const Modal = () => {
+    const onOpenModal = () => setOpen(true);
+    const onCloseModal = () => setOpen(false);
+
+    return (
+      <div>
+        <button onClick={onOpenModal}>Open Modal</button>
+        <Modal open={open} onClose={onCloseModal} center>
+          <h2>Simple centered modal</h2>
+        </Modal>
+      </div>
+    );
+  };
+
   // Slideshow Functionality
 
   function resetTimeout() {
@@ -56,23 +74,23 @@ const App = () => {
     }
   }
 
-  useEffect(() => {
-    resetTimeout();
-    timeoutRef.current = setTimeout(
-      () =>
-        setIndex((prevIndex) =>
-          prevIndex === cats.length - 1 ? 0 : prevIndex + 1
-        ),
-      delay
-    );
-    return () => {
-      resetTimeout();
-    };
-  }, [index]);
+  // useEffect(() => {
+  //   resetTimeout();
+  //   timeoutRef.current = setTimeout(
+  //     () =>
+  //       setIndex((prevIndex) =>
+  //         prevIndex === cats.length - 1 ? 0 : prevIndex + 1
+  //       ),
+  //     delay
+  //   );
+  //   return () => {
+  //     resetTimeout();
+  //   };
+  // }, [index]);
 
-  if (error.error) {
-    return <h1>{error.message}</h1>;
-  }
+  // if (error.error) {
+  //   return <h1>{error.message}</h1>;
+  // }
 
   // Home Page
 
@@ -96,7 +114,7 @@ const App = () => {
         <h1>Cats</h1>
       </div>
 
-      {/* Slideshow */}
+      {/* Slideshow
 
       <div>
         <div id="slideshow">
@@ -122,66 +140,64 @@ const App = () => {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
 
-        {/* Cat Elements */}
+      {/* Cat Elements */}
 
-        <div className="row">
-          {cats ? (
-            <>
-              {cats.map((cat, index) => {
-                return (
+      <div className="row">
+        {cats ? (
+          <>
+            {cats.map((cat, index) => {
+              return (
 
-                  // Individual Cat Card
+                // Individual Cat Card
 
-                  <div className="card-space">
+                <div className="card-space">
 
-                    <div className="card">
+                  <div className="card">
 
-                      <p>Name goes here</p>
-                      <img src={cat.url} alt="Cat-Picture" />
-                      <p>Price goes here</p>
+                    <p>Name: {faker.name.firstName()}</p>
+                    <img src={cat.url} alt="Cat-Picture" />
+                    <p>Price: ${faker.finance.amount()}</p>
 
-                      <div>
-                        <button>Add to Basket</button>
-                      </div>
-
+                    <div>
+                      <button>Add to Basket</button>
                     </div>
 
                   </div>
-                )
-              })}
-            </>
 
-          ) : (
-            <div className="loading">
-              <span className="dot1"></span>
-              <span className="dot2"></span>
-              <span className="dot3"></span>
-            </div>
-          )}
+                </div>
+              )
+            })}
+          </>
 
-        </div>
-
-        {/* Page Footer */}
-
-        <div>
-
-          <div className="footer">
-            <div>
-              <a href="#">Home</a>
-            </div>
-            <div>
-              <a href="#">Cats</a>
-            </div>
-            <div>
-              <a href="#">Checkout</a>
-            </div>
-            <div>
-              <a href="#">Contact us</a>
-            </div>
+        ) : (
+          <div className="loading">
+            <span className="dot1"></span>
+            <span className="dot2"></span>
+            <span className="dot3"></span>
           </div>
+        )}
 
+      </div>
+
+      {/* Page Footer */}
+
+      <div>
+
+        <div className="footer">
+          <div>
+            <a href="#">Home</a>
+          </div>
+          <div>
+            <a href="#">Cats</a>
+          </div>
+          <div>
+            <a href="#">Checkout</a>
+          </div>
+          <div>
+            <a href="#">Contact us</a>
+          </div>
         </div>
 
       </div>
