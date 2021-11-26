@@ -8,6 +8,13 @@ body {
   margin-right: auto;
 }
 
+/* Logo */
+
+#logo img {
+  width: auto;
+  height: 500px;
+}
+
 /* Nav Bar */
 
 .nav-bar {

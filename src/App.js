@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import React from 'react';
 import './App.css';
 import basket from './images/BasketIcon.png';
-import catLogo from './images/CatLogo.jpg';
+// import catLogo from './images/CatLogo.jpg';
+import logo from './images/00.png';
 import faker from 'faker';
 
 
@@ -110,8 +111,8 @@ const App = () => {
 
       {/* Title */}
 
-      <div>
-        <h1>Cats</h1>
+      <div id="logo">
+        <img src={logo} alt="Cats4Lyf" />
       </div>
 
       {/* Slideshow
