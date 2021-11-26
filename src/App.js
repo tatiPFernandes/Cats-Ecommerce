@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { useState } from "react";
 import "./App.css";
-import basket from "./images/BasketIcon.png";
 // import catLogo from './images/CatLogo.jpg';
 import logo from "./images/00.png";
-import faker from "faker";
+import faker, { address } from "faker";
 
 const delay = 2500;
 
@@ -13,7 +11,7 @@ const App = () => {
   const [index, setIndex] = useState(0);
   const timeoutRef = useRef(null);
   const [data, setData] = useState([]);
-  const [basket, setbasket] = useState([]);
+  const [basketTotal, setbasketTotal] = useState([]);
   const [open, setOpen] = useState(false);
 
   const [error, setError] = useState({
@@ -70,13 +68,27 @@ const App = () => {
 
   // add and remove to basket
 
-  const handleBasketAdding = (productIndex) => {
-    setBasket([...basket, data[productIndex]]);
+  const AddtoCart = (Price) => {
+    let basketTotalPrice = parseInt(basketTotal) + parseInt(Price);
+    setBasketTotal(basketTotalPrice);
   };
-  const removeProduct = (productIndex) => {
-    let newbasket = [...basket];
-    newbasket.splice(productIndex, 1);
-    setBasket(newBasket);
+
+  const activeBasket = (index) => {
+    let storedBasket = [...basket];
+    storedBasket.push(index);
+    setBasket(storedBasket);
+    address(item.Price);
+  };
+
+  const removefromCart = (Price) => {
+    let basketTotalPrice = parseInt(basketTotal) - parseInt(price);
+    setbasketTotal(basketTotalPrice);
+  };
+  const removeHandler = (index, price) => {
+    let storedList = [...basket];
+    storedList.splice(index, 1);
+    setBasket(storedList);
+    minus(price);
   };
 
   // Slideshow Functionality
@@ -117,7 +129,7 @@ const App = () => {
           <a href="#">Cats</a>
           <a href="#">Checkout</a>
           <span className="basket">
-            <img src={basket} alt="Basket-Icon" />
+            <img className="navBasket" src={basket} alt="Basket-Icon" />
           </span>
         </nav>
       </div>
@@ -172,7 +184,7 @@ const App = () => {
                     <p>Price: ${faker.finance.amount()}</p>
 
                     <div>
-                      <button>Add to Basket</button>
+                      <button className="addToBasket">Add to Basket</button>
                     </div>
                   </div>
                 </div>
