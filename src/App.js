@@ -19,11 +19,11 @@ function App() {
   const itemAdd = () => {
     basketItems.push({ ItemName: "Test", ItemPrice: 600 })
     setBasketItems(basketItems);
-    setTotalPrice(totalPrice += basketItems[0].ItemPrice);
+    setTotalPrice(totalPrice + basketItems[0].ItemPrice);
     console.log(totalPrice);
     console.log(basketItems);
   }
-  // byeee ^^ Cya :XD Haha wait. Shall i save this? You can do
+
   return (
     <div>
       <button onClick={openModal}>Basket</button>
@@ -56,7 +56,7 @@ function App() {
         </div>
         <div>
           <h1>Total price</h1>
-          <p>{totalPrice}</p>
+          <p>${totalPrice}</p>
         </div>
       </Modal>
     </div>
