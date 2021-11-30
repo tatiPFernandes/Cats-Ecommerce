@@ -1,27 +1,29 @@
-import { useEffect, useRef, useState } from "react";
-import React from 'react';
+import { React, useEffect, useRef, useState } from "react";
+import Modal from 'react-modal';
 import './App.css';
 import basket from './images/BasketIcon.png';
 // import catLogo from './images/CatLogo.jpg';
 import logo from './images/00.png';
 import faker from 'faker';
 
+// £ $ €
 
 const delay = 2500;
 
 const App = () => {
 
+  const [basketItems, setBasketItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [modal, setModal] = useState(false);
   const [index, setIndex] = useState(0);
-
+  const [cats, setCats] = useState([]);
   const timeoutRef = useRef(null);
 
   const [error, setError] = useState({
     error: false,
     message: "",
   });
-
-  const [cats, setCats] = useState([]);
 
   // API Handler
 
@@ -36,8 +38,11 @@ const App = () => {
 
       const data = await response.json();
 
-      setCats(data);
-      console.log(data)
+      for (let i = 0; i < 9; i++) {
+        cats.push({ ItemName: faker.name.firstName(), ItemUrl: data[i], ItemPrice: faker.finance.amount() })
+        setCats(cats)
+      }
+
       setLoading(false);
 
     } catch (e) {
@@ -49,31 +54,51 @@ const App = () => {
     handler();
   }, []);
 
+  const openModal = () => {
+    setModal(true);
+  }
+
+  const closeModal = () => {
+    setModal(false);
+  }
+
+  const itemAdd = (name, price) => {
+    basketItems.push({ ItemName: name, ItemPrice: price })
+    setBasketItems(basketItems);
+    setTotalPrice(totalPrice + basketItems[0].ItemPrice);
+    console.log(totalPrice);
+    console.log(basketItems);
+  }
+
+  // <p>Name: {faker.name.firstName()}</p>
+  // <img src={cat.url} alt="Cat-Picture" />
+  // <p>Price: ${faker.finance.amount()}</p>
+
   // Modal Open/Close
 
-  const [open, setOpen] = useState();
+  // const [open, setOpen] = useState();
 
-  const Modal = () => {
-    const onOpenModal = () => setOpen(true);
-    const onCloseModal = () => setOpen(false);
+  // const Modal = () => {
+  //   const onOpenModal = () => setOpen(true);
+  //   const onCloseModal = () => setOpen(false);
 
-    return (
-      <div>
-        <button onClick={onOpenModal}>Open Modal</button>
-        <Modal open={open} onClose={onCloseModal} center>
-          <h2>Simple centered modal</h2>
-        </Modal>
-      </div>
-    );
-  };
+  //   return (
+  //     <div>
+  //       <button onClick={onOpenModal}>Open Modal</button>
+  //       <Modal open={open} onClose={onCloseModal} center>
+  //         <h2>Simple centered modal</h2>
+  //       </Modal>
+  //     </div>
+  //   );
+  // };
 
   // Slideshow Functionality
 
-  function resetTimeout() {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-  }
+  // function resetTimeout() {
+  //   if (timeoutRef.current) {
+  //     clearTimeout(timeoutRef.current);
+  //   }
+  // }
 
   // useEffect(() => {
   //   resetTimeout();
@@ -105,7 +130,39 @@ const App = () => {
           <a href="#">Home</a>
           <a href="#">Cats</a>
           <a href="#">Checkout</a>
-          <span className="basket"><img src={basket} alt="Basket-Icon" /></span>
+          <span className="basket"><img src={basket} alt="Basket-Icon" onClick={openModal} /></span>
+          <Modal isOpen={modal}>
+            <button onClick={closeModal}>Close Basket</button>
+            <h1>Basket</h1>
+            <div>
+              {basketItems ? (
+                <>
+                  {basketItems.map((item, index) => {
+                    return (
+                      <div>
+                        <span>{item.ItemName}</span>
+                        <span>{item.ItemPrice}</span>
+                        <span> + </span>
+                        <span> - </span>
+                      </div>
+                    )
+                  })}
+                </>
+              ) : (
+
+                <div className="loading">
+                  <span className="dot1"></span>
+                  <span className="dot2"></span>
+                  <span className="dot3"></span>
+                </div>
+              )}
+            </div>
+            <div>
+              <h1>Total price</h1>
+              <p>£{totalPrice}</p>
+            </div>
+          </Modal>
+
         </nav>
       </div>
 
@@ -157,12 +214,12 @@ const App = () => {
 
                   <div className="card">
 
-                    <p>Name: {faker.name.firstName()}</p>
-                    <img src={cat.url} alt="Cat-Picture" />
-                    <p>Price: ${faker.finance.amount()}</p>
+                    <p>Name: {cat[index].ItemName}</p>
+                    <img src={cat.ItemUrl} alt="Cat-Picture" />
+                    <p>Price: {cat[index].ItemPrice}</p>
 
                     <div>
-                      <button>Add to Basket</button>
+                      <button onClick={itemAdd(faker.name.firstName(), faker.finance.amount())}>Add to Basket</button>
                     </div>
 
                   </div>
