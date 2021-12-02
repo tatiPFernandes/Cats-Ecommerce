@@ -17,7 +17,9 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
   const [index, setIndex] = useState(0);
-  const [cats, setCats] = useState([]);
+  const [catsName, setCatsName] = useState([]);
+  const [catsPrice, setCatsPrice] = useState([]);
+  const [catsURL, setCatsURL] = useState([]);
   const timeoutRef = useRef(null);
 
   const [error, setError] = useState({
@@ -33,14 +35,16 @@ const App = () => {
       const response = await fetch("https://api.thecatapi.com/v1/images/search?limit=10");
       console.log(response);
       if (response.status !== 200) {
-        throw new Error("Something got wrong");
+        throw new Error("Something went wrong");
       }
 
       const data = await response.json();
 
+      console.log(data);
+
       for (let i = 0; i < 9; i++) {
-        cats.push({ ItemName: faker.name.firstName(), ItemUrl: data[i], ItemPrice: faker.finance.amount() })
-        setCats(cats)
+        setCatsURL(data);
+        console.log(catsURL);
       }
 
       setLoading(false);
@@ -50,9 +54,15 @@ const App = () => {
     }
   };
 
-  useEffect(() => {
-    handler();
-  }, []);
+  const fakeDataHandler = () => {
+    for (let i = 0; i < 10; i++) {
+      catsName.push(faker.name.firstName());
+      setCatsName(catsName);
+
+      catsPrice.push(faker.finance.amount(100, 500, 2, "£"));
+      setCatsPrice(catsPrice);
+    }
+  }
 
   const openModal = () => {
     setModal(true);
@@ -63,12 +73,19 @@ const App = () => {
   }
 
   const itemAdd = (name, price) => {
-    basketItems.push({ ItemName: name, ItemPrice: price })
+    basketItems.push({ name: name, price: price })
     setBasketItems(basketItems);
-    setTotalPrice(totalPrice + basketItems[0].ItemPrice);
+    setTotalPrice(totalPrice + basketItems[0].price);
     console.log(totalPrice);
     console.log(basketItems);
   }
+
+  useEffect(() => {
+    handler();
+    console.log(catsURL);
+    console.log(catsName);
+    console.log(catsPrice);
+  }, []);
 
   // <p>Name: {faker.name.firstName()}</p>
   // <img src={cat.url} alt="Cat-Picture" />
@@ -203,9 +220,9 @@ const App = () => {
       {/* Cat Elements */}
 
       <div className="row">
-        {cats ? (
+        {catsURL ? (
           <>
-            {cats.map((cat, index) => {
+            {catsURL.map((cat, index) => {
               return (
 
                 // Individual Cat Card
@@ -214,12 +231,12 @@ const App = () => {
 
                   <div className="card">
 
-                    <p>Name: {cat[index].ItemName}</p>
-                    <img src={cat.ItemUrl} alt="Cat-Picture" />
-                    <p>Price: {cat[index].ItemPrice}</p>
+                    <p>Name: {catsName}</p>
+                    <img src={cat[index]} alt="Cat-Picture" />
+                    <p>Price: {catsPrice}</p>
 
                     <div>
-                      <button onClick={itemAdd(faker.name.firstName(), faker.finance.amount())}>Add to Basket</button>
+                      <button onClick={itemAdd({ catsName }, { catsPrice })}>Add to Basket</button>
                     </div>
 
                   </div>
